@@ -1,0 +1,23 @@
+@import "styles/variables.scss";
+
+.button {
+    all: unset;
+
+    box-sizing: border-box;
+    background-color: $color-2;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: all .2s ease;
+    user-select: none;
+    border: 2px solid transparent;
+}
+
+.button:hover {
+    background-color: blueviolet;
+}
+
+.button:active {
+    border: 2px solid blueviolet;
+    background-color: transparent;
+    padding: 10px 30px;
+}
