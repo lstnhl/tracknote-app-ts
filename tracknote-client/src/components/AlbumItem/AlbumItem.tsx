@@ -1,13 +1,8 @@
 import { FC } from 'react';
+import { IAlbumItem } from 'types/AlbumProps';
 import s from './AlbumItem.module.scss';
 
-interface AlbumItemProps {
-  artist: string;
-  title: string;
-  image?: string;
-}
-
-const AlbumItem: FC<AlbumItemProps> = ({ artist, title, image = '' }) => {
+const AlbumItem: FC<IAlbumItem> = ({ artist, title, image = '' }) => {
   return (
     <div className={s.container}>
       <h2>{title}</h2>

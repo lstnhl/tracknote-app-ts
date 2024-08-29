@@ -5,6 +5,7 @@ import Header from 'components/Header/Header';
 import LoginPage from 'pages/LoginPage';
 import ProtectedRoute from 'routes/ProtectedRoute';
 import MainPage from 'pages/MainPage';
+import AlbumPage from 'pages/AlbumPage/AlbumPage';
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
           <Route path="/login" element={<LoginPage />} />
           <Route element={<ProtectedRoute />}>
             <Route index element={<MainPage />} />
+            <Route path="/album/:id" element={<AlbumPage />} />
             <Route path="/profile" element={<h1>Profile</h1>} />
             <Route path="/another" element={<h1>Another</h1>} />
             <Route path="*" element={<h1>404</h1>} />

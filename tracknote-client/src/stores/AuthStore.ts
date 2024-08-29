@@ -1,17 +1,22 @@
-import { makeAutoObservable } from "mobx";
+import { create } from 'zustand';
+import createSelectors from 'stores/createSelectors';
 
-class AuthStore {
-    isAuth = false;
-    username = 'LASTINHVLE';
-
-    constructor() {
-        makeAutoObservable(this);
-    }
-
-    toggleAuth() {
-        this.isAuth = !this.isAuth;
-    }
+interface IAuthStore {
+  username: string;
+  isAuth: boolean;
+  login: (name: string) => void;
+  logout: () => void;
 }
 
-const authStore = new AuthStore();
-export default authStore;
+const useAuthStoreBase = create<IAuthStore>()((set) => ({
+  username: '',
+  isAuth: false,
+
+  login: (name) => set(() => ({ isAuth: true, username: name })),
+
+  logout: () => set(() => ({ isAuth: false, username: '' })),
+}));
+
+const useAuthStore = createSelectors(useAuthStoreBase);
+
+export default useAuthStore;

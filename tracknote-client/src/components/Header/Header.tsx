@@ -1,7 +1,6 @@
-import { observer } from 'mobx-react-lite';
 import { NavLink } from 'react-router-dom';
-import authStore from 'stores';
 import s from './Header.module.scss';
+import useAuthStore from 'stores/AuthStore';
 
 const menu = [
   {
@@ -21,12 +20,15 @@ const menu = [
   },
 ];
 
-const Header = observer(() => {
+const Header = () => {
+  const isAuth = useAuthStore.use.isAuth();
+  const username = useAuthStore.use.username();
+
   return (
     <div className={s.container}>
       <nav>
         <div className={s.left_side}>
-          {authStore.isAuth &&
+          {isAuth &&
             menu.map((item) => (
               <NavLink
                 key={item.id}
@@ -39,13 +41,13 @@ const Header = observer(() => {
               </NavLink>
             ))}
         </div>
-        {!authStore.isAuth ? (
+        {!isAuth ? (
           <NavLink to="/login" className={s.right_side}>
             <p>Вход</p>
           </NavLink>
         ) : (
           <NavLink to="/profile" className={s.right_side}>
-            <p>{authStore.username}</p>
+            <p>{username}</p>
             <img
               src="https://avavatar.ru/images/full/16/9SOEdMAK2IqC5zus.jpg"
               alt=""
@@ -55,6 +57,6 @@ const Header = observer(() => {
       </nav>
     </div>
   );
-});
+};
 
 export default Header;

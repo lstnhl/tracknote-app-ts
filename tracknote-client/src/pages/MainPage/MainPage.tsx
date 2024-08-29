@@ -1,5 +1,6 @@
 import AlbumItem from 'components/AlbumItem';
 import s from './MainPage.module.scss';
+import { Link } from 'react-router-dom';
 
 const mockAlbums = [
   {
@@ -182,7 +183,6 @@ const mockAlbums = [
     artist: 'LASTINHVLE',
     title: 'Album 4',
   },
-  
 ];
 
 const MainPage = () => {
@@ -190,7 +190,11 @@ const MainPage = () => {
     <>
       <h1>У вас {mockAlbums.length} альбомов</h1>
       <div className={s.container}>
-        {mockAlbums.map((album) => <AlbumItem key={album.id} artist={album.artist} title={album.title} />)}
+        {mockAlbums.map((album) => (
+          <Link key={album.id} to={`/album/${album.id}`}>
+            <AlbumItem artist={album.artist} title={album.title} />
+          </Link>
+        ))}
       </div>
     </>
   );
