@@ -6,6 +6,7 @@ import LoginPage from 'pages/LoginPage';
 import ProtectedRoute from 'routes/ProtectedRoute';
 import MainPage from 'pages/MainPage';
 import AlbumPage from 'pages/AlbumPage/AlbumPage';
+import CheckAuth from 'components/CheckAuth';
 
 function App() {
   return (
@@ -13,13 +14,15 @@ function App() {
       <Header />
       <main>
         <Routes>
-          <Route path="/login" element={<LoginPage />} />
-          <Route element={<ProtectedRoute />}>
-            <Route index element={<MainPage />} />
-            <Route path="/album/:id" element={<AlbumPage />} />
-            <Route path="/profile" element={<h1>Profile</h1>} />
-            <Route path="/another" element={<h1>Another</h1>} />
-            <Route path="*" element={<h1>404</h1>} />
+          <Route element={<CheckAuth />}>
+            <Route path="/login" element={<LoginPage />} />
+            <Route element={<ProtectedRoute />}>
+              <Route index element={<MainPage />} />
+              <Route path="/album/:id" element={<AlbumPage />} />
+              <Route path="/profile" element={<h1>Profile</h1>} />
+              <Route path="/another" element={<h1>Another</h1>} />
+              <Route path="*" element={<h1>404</h1>} />
+            </Route>
           </Route>
         </Routes>
       </main>

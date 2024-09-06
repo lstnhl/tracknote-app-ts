@@ -18,8 +18,6 @@ const Text: FC<IText> = ({ label, errorMessage, ...props }) => {
             className = className + ` ${s.error}`;
         }
 
-        console.log(className);
-
         return className;
     };
 

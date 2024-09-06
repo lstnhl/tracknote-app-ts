@@ -1,66 +1,67 @@
-import React, { useState } from 'react';
 import Button from 'components/UI/Button';
 import useAuthStore from 'stores/AuthStore';
 import { useNavigate } from 'react-router-dom';
 import Text from 'components/UI/Text';
+import useForm from 'utils/useForm';
+
+const formData = [
+    {
+        name: 'username',
+        label: 'Имя',
+        hidden: false,
+        validators: {
+            notNull: true,
+            minLength: 4,
+            maxLength: 12,
+        },
+    },
+    {
+        name: 'password',
+        label: 'Пароль',
+        hidden: true,
+        validators: {
+            notNull: true,
+            minLength: 6,
+            maxLength: 12,
+        },
+    },
+];
 
 const LoginPage = () => {
     const login = useAuthStore.use.login();
-    const [form, setForm] = useState({
-        username: {
-          value: '',
-          errorMessage: '',
-        },
-        password: {
-          value: '',
-          errorMessage: '',
-        },
-    });
+    const { data, changeValue, validate } = useForm(formData);
+    const navigate = useNavigate();
 
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setForm({
-            ...form,
-            [e.target.name]: {
-              value: e.target.value
-            },
-        });
-    };
-
-    const handleSubmit = () => {
-      if (form.password.value.length < 6) {
-        setForm({
-          ...form,
-          password: {
-            ...form.password,
-            errorMessage: 'Пароль не должен быть короче 6 символов'
-          }
-        });
-        return;
-      }
-
-
-      login(form.username.value)
-    };
+    const onError = (message: string) => {
+        alert(message)
+    }
 
     return (
         <>
             <h1>Вход</h1>
             <form>
-                <Text
-                    label="Имя"
-                    errorMessage={form.username.errorMessage}
-                    name="username"
-                    onChange={handleChange}
-                />
-                <Text
-                    label="Пароль"
-                    errorMessage={form.password.errorMessage}
-                    name="password"
-                    type="password"
-                    onChange={handleChange}
-                />
+                {data.map((el, index) => (
+                    <Text
+                        key={index}
+                        label={el.label}
+                        errorMessage={el.errorMessage}
+                        name={el.name}
+                        onChange={changeValue}
+                        value={el.value}
+                        type={el.hidden ? 'password' : 'text'}
+                    />
+                ))}
             </form>
-            <Button onClick={handleSubmit}>Войти</Button>
+            <Button
+                onClick={() =>
+                    validate(() => {
+                        login(data[0].value, data[1].value, onError);
+                        navigate('/');
+                    })
+                }
+            >
+                Войти
+            </Button>
         </>
     );
 };

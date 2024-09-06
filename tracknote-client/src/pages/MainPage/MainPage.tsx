@@ -1,6 +1,9 @@
 import AlbumItem from 'components/AlbumItem';
 import s from './MainPage.module.scss';
 import { Link } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import useAuthStore from 'stores/AuthStore';
+import useContentApi from 'api/contentApi';
 
 const mockAlbums = [
   {
@@ -186,13 +189,28 @@ const mockAlbums = [
 ];
 
 const MainPage = () => {
+  const [albums, setAlbums] = useState<any>([]);
+  const [message, setMessage] = useState('Loading...');
+  const { getAllAlbums } = useContentApi();
+
+  useEffect(() => {
+    getAllAlbums().then(({ data }) => {
+      setMessage(data.message);
+      setAlbums(data.albums);
+    });
+  }, []);
+
   return (
     <>
-      <h1>У вас {mockAlbums.length} альбомов</h1>
+      <h1>{message}</h1>
       <div className={s.container}>
-        {mockAlbums.map((album) => (
-          <Link key={album.id} to={`/album/${album.id}`}>
-            <AlbumItem artist={album.artist} title={album.title} />
+        {albums?.map((album: any) => (
+          <Link key={album._id} to={`/album/${album._id}`}>
+            <AlbumItem
+              artist={album.description}
+              title={album.title}
+              image={album.cover}
+            />
           </Link>
         ))}
       </div>

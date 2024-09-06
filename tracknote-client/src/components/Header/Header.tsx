@@ -1,6 +1,7 @@
 import { NavLink } from 'react-router-dom';
 import s from './Header.module.scss';
 import useAuthStore from 'stores/AuthStore';
+import { getFile } from 'utils/getFile';
 
 const menu = [
   {
@@ -12,17 +13,22 @@ const menu = [
     id: 1,
     title: 'Треки',
     path: '/another',
-  },
-  {
-    id: 2,
-    title: 'Профиль',
-    path: '/profile',
-  },
+  }
 ];
 
 const Header = () => {
   const isAuth = useAuthStore.use.isAuth();
   const username = useAuthStore.use.username();
+  const avatar = useAuthStore.use.avatar();
+  const logout = useAuthStore.use.logout();
+
+  let avatarUrl;
+
+  if (avatar) {
+    avatarUrl = getFile(`/avatar/${avatar}`)
+  } else {
+    avatarUrl = 'https://cs13.pikabu.ru/avatars/3093/x3093804-265983935.png';
+  }
 
   return (
     <div className={s.container}>
@@ -40,19 +46,26 @@ const Header = () => {
                 <p>{item.title}</p>
               </NavLink>
             ))}
+          {isAuth && (
+            <NavLink to="#" className={s.button} onClick={() => logout()}>
+              <p>Выйти</p>
+            </NavLink>
+          )}
         </div>
         {!isAuth ? (
           <NavLink to="/login" className={s.right_side}>
             <p>Вход</p>
           </NavLink>
         ) : (
-          <NavLink to="/profile" className={s.right_side}>
-            <p>{username}</p>
-            <img
-              src="https://avavatar.ru/images/full/16/9SOEdMAK2IqC5zus.jpg"
-              alt=""
-            />
-          </NavLink>
+          <>
+            <NavLink to="/profile" className={s.right_side}>
+              <p>{username}</p>
+              <img
+                src={avatarUrl}
+                alt=""
+              />
+            </NavLink>
+          </>
         )}
       </nav>
     </div>
