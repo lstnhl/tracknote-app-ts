@@ -15,7 +15,7 @@ app.use(bodyParser.json());
 app.use(
     cors({
         credentials: true,
-        origin: 'http://localhost:3001',
+        origin: process.env.FRONTEND_ORIGIN,
     })
 );
 app.use(cookieParser());
@@ -25,7 +25,7 @@ app.use('/api', rootRouter);
 app.listen(PORT, async () => {
     if (process.env.MONGO_URI) {
         await mongoose.connect(process.env.MONGO_URI);
-        console.log('Connected to MongoDB');
+        console.log('Соединение с MongoDB установлено');
     }
-    console.log(`Server is started on port ${PORT}`);
+    console.log(`Сервер запущен на порту ${PORT}`);
 });

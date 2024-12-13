@@ -17,7 +17,7 @@ const authCheck = (requiredRole: string | null = null) => {
         }
 
         try {
-            const decoded = jwt.verify(token, process.env.SALT || 'key') as JwtPayloadWithRole;
+            const decoded = jwt.verify(token, process.env.SALT) as JwtPayloadWithRole;
 
             if (requiredRole) {
                 if (requiredRole === 'ADMIN' && decoded.role === 'USER') {

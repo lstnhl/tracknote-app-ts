@@ -5,5 +5,6 @@ declare namespace NodeJS {
         SALT: string;
         SALT2: string;
         STORAGE_DIR: string;
+        FRONTEND_ORIGIN: string;
     }
 }

@@ -16,7 +16,7 @@ class AuthController {
             }
 
             const isValidPass = await bcrypt.compare(
-                password + process.env.SALT2 || 'salt',
+                password + process.env.SALT2,
                 user.password
             );
             if (!isValidPass) {
@@ -32,7 +32,7 @@ class AuthController {
                     avatar: user.avatar || '',
                     role: user.role,
                 },
-                process.env.SALT || 'key',
+                process.env.SALT,
                 {
                     expiresIn: '1h',
                 }
@@ -42,7 +42,7 @@ class AuthController {
                 {
                     username: user.username,
                 },
-                process.env.SALT2 || 'key2',
+                process.env.SALT2,
                 {
                     expiresIn: '2d',
                 }
@@ -70,7 +70,7 @@ class AuthController {
         try {
             const { username, password } = req.body;
             const hashedPassword = await bcrypt.hash(
-                password + process.env.SALT2 || 'salt',
+                password + process.env.SALT2,
                 10
             );
 
@@ -118,7 +118,7 @@ class AuthController {
 
         jwt.verify(
             token,
-            process.env.SALT2 || 'key2',
+            process.env.SALT2,
             async (err: any, decoded: any) => {
                 if (err) return res.status(403);
 
@@ -133,7 +133,7 @@ class AuthController {
                         avatar: user.avatar || '',
                         role: user.role,
                     },
-                    process.env.SALT || 'key',
+                    process.env.SALT,
                     {
                         expiresIn: '1h',
                     }
