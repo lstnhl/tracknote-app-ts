@@ -22,13 +22,11 @@ const Header = () => {
   const avatar = useAuthStore.use.avatar();
   const logout = useAuthStore.use.logout();
 
-  const emptyAvatar = 'https://cs13.pikabu.ru/avatars/3093/x3093804-265983935.png';
-
   const avatarUrl = () => {
     if (avatar) {
       return getFile(`/avatar/${avatar}`);
     } else {
-      return emptyAvatar;
+      return '';
     }
   };
 
