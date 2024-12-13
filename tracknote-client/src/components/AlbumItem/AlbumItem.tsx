@@ -1,22 +1,14 @@
 import { FC } from 'react';
 import { IAlbumItem } from 'types/AlbumProps';
 import s from './AlbumItem.module.scss';
-import { getFile } from 'utils/getFile';
+import { getBackgroundImageUrl } from 'utils/getFile';
 
-const AlbumItem: FC<IAlbumItem> = ({ artist, title, image = '' }) => {
-  let imageUrl;
-
-  if (image) {
-    imageUrl = `url("${getFile(`cover/${image}`)}")`
-  } else {
-    imageUrl = 'url("https://rostov.muzprime.ru/upload/iblock/717/717481027b29647bc17ed3317cdcd923.jpg")';
-  }
-
+const AlbumItem: FC<IAlbumItem> = ({ artist, title, cover = '' }) => {
   return (
     <div
       className={s.container}
       style={{
-        backgroundImage: imageUrl,
+        backgroundImage: getBackgroundImageUrl(cover),
       }}
     >
       <h2>{title}</h2>

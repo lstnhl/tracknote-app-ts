@@ -1,0 +1,44 @@
+.container {
+  display: flex;
+  padding: 10px 20px;
+  margin-bottom: 30px;
+  align-items: center;
+  justify-content: space-between;
+  border: 1px solid white;
+
+  div {
+    font-size: 20px;
+  }
+
+  button {
+    align-self: flex-end;
+  }
+}
+
+.order {
+  opacity: 0.5;
+}
+
+.explicit {
+  text-align: center;
+  width: 30px;
+  height: 30px;
+  border: 1px solid white;
+}
+
+.feats {
+  display: flex;
+  gap: 5px;
+  font-style: italic;
+}
+
+.transparent {
+  opacity: 0.2;
+}
+
+.trackInfo {
+  margin: 0 20px;
+  display: flex;
+  flex-grow: 1;
+  gap: 20px;
+}

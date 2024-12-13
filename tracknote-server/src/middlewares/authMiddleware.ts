@@ -1,8 +1,13 @@
 import { Request, Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
+import RequestWithUserId from 'types/RequestWithUserId.ts';
+
+interface JwtPayloadWithRole extends jwt.JwtPayload {
+    role?: string;
+}
 
 const authCheck = (requiredRole: string | null = null) => {
-    return (req: Request, res: Response, next: NextFunction) => {
+    return (req: RequestWithUserId, res: Response, next: NextFunction) => {
         const token = req.header('Authorization')?.split(' ')[1];
         // const token = req.cookies['jwt'];
         if (!token) {
@@ -12,7 +17,7 @@ const authCheck = (requiredRole: string | null = null) => {
         }
 
         try {
-            const decoded = jwt.verify(token, process.env.SALT || 'key');
+            const decoded = jwt.verify(token, process.env.SALT || 'key') as JwtPayloadWithRole;
 
             if (requiredRole) {
                 if (requiredRole === 'ADMIN' && decoded.role === 'USER') {
@@ -22,7 +27,6 @@ const authCheck = (requiredRole: string | null = null) => {
                 }
             }
 
-            // @ts-ignore
             req.userId = decoded.id;
             next();
         } catch (e) {

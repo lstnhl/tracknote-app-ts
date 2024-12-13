@@ -65,7 +65,8 @@ const useAuthStoreBase = create<IAuthStore>()((set) => ({
         }));
       })
       .catch((err) => {
-        console.log(err.response.data.message);
+        set(() => (initialState));
+        console.log(err);
       });
   },
 }));

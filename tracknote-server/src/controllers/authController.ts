@@ -2,7 +2,6 @@ import { Request, Response } from 'express';
 import User from 'models/User.ts';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
-import expressAsyncHandler from 'express-async-handler';
 
 class AuthController {
     async login(req: Request, res: Response) {

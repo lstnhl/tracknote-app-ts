@@ -7,10 +7,12 @@ import ProtectedRoute from 'routes/ProtectedRoute';
 import MainPage from 'pages/MainPage';
 import AlbumPage from 'pages/AlbumPage/AlbumPage';
 import CheckAuth from 'components/CheckAuth';
+import Modal from 'components/UI/Modal';
 
 function App() {
   return (
     <div>
+      <Modal />
       <Header />
       <main>
         <Routes>

@@ -1,7 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 
-const storageDir = 'F:/MyFolber/Projects/tracknote-app-ts/tracknote-server/_storage';
+const storageDir = process.env.STORAGE_DIR;
 
 const removeFile = (dir: string, filename: string) => {
     const filePath = path.join(storageDir, dir, filename);

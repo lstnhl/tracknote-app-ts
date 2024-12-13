@@ -1,12 +1,13 @@
-import React, { FC, ComponentPropsWithoutRef } from 'react';
+import React, { FC, ComponentPropsWithoutRef, useState, ChangeEvent } from 'react';
 import s from './Text.module.scss';
 
 interface IText extends ComponentPropsWithoutRef<'input'> {
     label?: string;
     errorMessage?: string;
+    initialValue?: string;
 }
 
-const Text: FC<IText> = ({ label, errorMessage, ...props }) => {
+const Text: FC<IText> = ({ label, errorMessage, initialValue = '', ...props }) => {
     const getInputClassName = (): string => {
         let className = `${s.input}`;
 
@@ -24,7 +25,7 @@ const Text: FC<IText> = ({ label, errorMessage, ...props }) => {
     return (
         <div className={s.container}>
             <label>
-                {label + ':'}
+                {label ? label + ':' : null}
             </label>
             <input {...props} className={getInputClassName()} />
             {errorMessage && <span>{errorMessage}</span>}

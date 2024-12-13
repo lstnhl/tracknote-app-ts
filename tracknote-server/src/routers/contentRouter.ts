@@ -24,5 +24,15 @@ contentRouter.post(
     authCheck('USER'),
     contentController.addTrackToAlbum
 );
+contentRouter.delete(
+    '/track/:trackId',
+    authCheck('USER'),
+    contentController.deleteTrack
+);
+contentRouter.put(
+    '/track/:trackId',
+    authCheck('USER'),
+    contentController.editTrack
+)
 
 export default contentRouter;

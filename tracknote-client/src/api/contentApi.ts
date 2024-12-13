@@ -16,7 +16,35 @@ const useContentApi = () => {
     return api.get(`/content/album/${id}`, opts);
   };
 
-  return { getAllAlbums, getAlbumById };
+  const addTrackToAlbum = (albumId: string, title: string) => {
+    refresh();
+    return api.post(
+      `/content/album/${albumId}/add_track`,
+      {
+        title,
+      },
+      opts,
+    );
+  };
+
+  const editTrack = (id: string, title: string) => {
+    refresh();
+    return api.put(
+      `/content/track/${id}`,
+      {
+        id,
+        title,
+      },
+      opts,
+    );
+  };
+
+  const deleteTrack = (id: string) => {
+    refresh();
+    return api.delete(`content/track/${id}`, opts);
+  };
+
+  return { getAllAlbums, getAlbumById, addTrackToAlbum };
 };
 
 export default useContentApi;
