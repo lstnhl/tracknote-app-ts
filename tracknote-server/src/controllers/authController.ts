@@ -2,10 +2,9 @@ import { Request, Response } from 'express';
 import User from 'models/User.ts';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
-import asyncWrapper from 'utils/asyncWrapper.ts';
 
 class AuthController {
-    login = asyncWrapper(async (req: Request, res: Response) => {
+    async login(req: Request, res: Response) {
         req.errorContext = 'Ошибка входа';
         const { username, password } = req.body;
 
@@ -60,9 +59,9 @@ class AuthController {
             message: 'Вход успешен',
             accessToken,
         });
-    });
+    }
 
-    register = asyncWrapper(async (req: Request, res: Response) => {
+    async register(req: Request, res: Response) {
         req.errorContext = 'Ошибка регистрации';
         const { username, password } = req.body;
         const hashedPassword = await bcrypt.hash(
@@ -81,7 +80,7 @@ class AuthController {
             message: 'Регистрация успешна',
             data: user._id,
         });
-    });
+    }
 
     async logout(req: Request, res: Response) {
         req.errorContext = 'Ошибка при выходе из системы';
