@@ -54,6 +54,7 @@ class ContentController {
   async createAlbum(req: RequestWithUserId, res: Response) {
     try {
       const { title, description } = req.body;
+      const cover = req.file ? req.file.filename : '';
 
       if (!title) {
         return res.status(400).json({
@@ -64,6 +65,7 @@ class ContentController {
       const newAlbum = await Album.create({
         title,
         owner: req.userId,
+        cover,
       });
 
       if (description) {

@@ -8,7 +8,7 @@ contentRouter.use(authCheck('USER'))
 
 contentRouter.get('/album', contentController.getAllAlbums);
 contentRouter.get('/album/:id', contentController.getAlbum);
-contentRouter.post('/album', contentController.createAlbum);
+contentRouter.post('/album', upload.single('cover'), contentController.createAlbum);
 contentRouter.delete(
     '/album/:id',
     contentController.deleteAlbum

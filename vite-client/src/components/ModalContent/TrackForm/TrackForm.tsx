@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import Text from 'components/UI/Text';
 import useContentStore from 'stores/ContentStore';
 
@@ -30,4 +31,4 @@ const TrackForm = () => {
   );
 };
 
-export default TrackForm;
+export default memo(TrackForm);

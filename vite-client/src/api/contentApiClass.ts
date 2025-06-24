@@ -6,18 +6,26 @@ import { ITrackFormInfo } from 'types/AlbumProps';
 class ContentApi {
   private refresh = useAuthStore.getState().refresh;
 
-  getAllAlbums() {
-    this.refresh();
+  private async checkAndRefreshToken() {
+    const currentTime = Date.now();
+    const state = useAuthStore.getState();
+    if (state.tokenExpiry <= currentTime && state.isAuth) {
+      await this.refresh();
+    }
+  }
+
+  async getAllAlbums() {
+    await this.checkAndRefreshToken();
     return api.get('/content/album', options());
   }
 
-  getAlbumById(id: string) {
-    this.refresh();
+  async getAlbumById(id: string) {
+    await this.checkAndRefreshToken();
     return api.get(`/content/album/${id}`, options());
   }
 
-  addTrackToAlbum(albumId: string, info: ITrackFormInfo) {
-    this.refresh();
+  async addTrackToAlbum(albumId: string, info: ITrackFormInfo) {
+    await this.checkAndRefreshToken();
     return api.post(
       `/content/album/${albumId}/add_track`,
       {
@@ -27,8 +35,8 @@ class ContentApi {
     );
   }
 
-  editTrack(id: string, info: ITrackFormInfo) {
-    this.refresh();
+  async editTrack(id: string, info: ITrackFormInfo) {
+    await this.checkAndRefreshToken();
     return api.put(
       `/content/track/${id}`,
       {
@@ -39,10 +47,10 @@ class ContentApi {
     );
   }
 
-  deleteTrack(trackId: string) {
-    this.refresh();
+  async deleteTrack(trackId: string) {
+    await this.checkAndRefreshToken();
     return api.delete(
-      `content/track/${trackId}`,
+      `/content/track/${trackId}`,
       options(),
     );
   }

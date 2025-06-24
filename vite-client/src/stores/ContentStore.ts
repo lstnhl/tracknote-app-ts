@@ -72,46 +72,53 @@ const useContentStoreBase = create<IContentStore>()((set, get) => ({
 
     const info = get().trackFormInfo;
 
-    await contentApi.addTrackToAlbum(id, info).then((res) => {
-      set((state) => ({
-        currentAlbum: {
-          ...state.currentAlbum,
-          tracks: [...state.currentAlbum.tracks, res.data],
-        },
-      }));
+    await contentApi.addTrackToAlbum(id, info).then(async () => {
+      await contentApi.getAlbumById(id).then((albumRes) => {
+        set(() => ({
+          currentAlbum: albumRes.data,
+        }));
+      });
       get().clearTrackInfo();
     }).catch((e) => {
-        console.log(e.response.data);
-        
+        console.error('Ошибка при добавлении трека:', e.response?.data || e.message);
+        // TODO: Добавить уведомление для пользователя об ошибке
     });
   },
 
   deleteTrack: async (id) => {
     await contentApi
       .deleteTrack(id)
-      .then((res) => {
-        set(() => ({
-          currentAlbum: {
-            ...res.data,
-          },
-        }));
+      .then(async () => {
+        const id = get().currentAlbum?._id;
+        if (id) {
+          await contentApi.getAlbumById(id).then((albumRes) => {
+            set(() => ({
+              currentAlbum: albumRes.data,
+            }));
+          });
+        }
       })
       .catch((e) => {
-        console.log(e.data);
+        console.error('Ошибка при удалении трека:', e.response?.data || e.message);
+        // TODO: Добавить уведомление для пользователя об ошибке
       });
   },
 
   editTrack: async (id) => {
     const info = get().trackFormInfo;
 
-    await contentApi.editTrack(id, info).then((res) => {
-        set(() => ({
-            currentAlbum: {
-                ...res.data
-            }
-        }))
+    await contentApi.editTrack(id, info).then(async () => {
+        const albumId = get().currentAlbum?._id;
+        if (albumId) {
+          await contentApi.getAlbumById(albumId).then((albumRes) => {
+            set(() => ({
+              currentAlbum: albumRes.data
+            }));
+          });
+        }
     }).catch((e) => {
-        console.log(e.data);
+        console.error('Ошибка при редактировании трека:', e.response?.data || e.message);
+        // TODO: Добавить уведомление для пользователя об ошибке
     })
   },
 

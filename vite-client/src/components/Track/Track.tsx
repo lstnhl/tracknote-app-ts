@@ -1,4 +1,4 @@
-import { FC, useEffect } from 'react';
+import { FC, useEffect, memo } from 'react';
 import { ITrack } from 'types/AlbumProps';
 import s from './Track.module.scss';
 import Button from 'components/UI/Button';
@@ -23,8 +23,8 @@ const EditModalContent: FC<ITrackProps> = ({
       title: data.title,
       explicit: data.explicit,
       feats: data.feats ? data.feats?.toString() : '',
-    })
-  }, [])
+    });
+  }, [data, setInitialInfo]);
 
   return (
     <>
@@ -80,4 +80,4 @@ const Track: FC<ITrackProps> = ({ data }) => {
   );
 };
 
-export default Track;
+export default memo(Track);

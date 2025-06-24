@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import Button from 'components/UI/Button';
 import useAuthStore from 'stores/AuthStore';
 import { useNavigate } from 'react-router-dom';
@@ -29,11 +30,27 @@ const formData = [
 
 const LoginPage = () => {
     const login = useAuthStore.use.login();
+    const isAuth = useAuthStore.use.isAuth();
     const { data, changeValue, validate } = useForm(formData);
     const navigate = useNavigate();
 
     const onError = (message: string) => {
-        alert(message)
+        alert(message);
+    };
+
+    const onSuccess = () => {
+        navigate('/');
+    };
+
+    useEffect(() => {
+        // Перенаправляем на главную страницу, если пользователь уже авторизован
+        if (isAuth) {
+            navigate('/', { replace: true });
+        }
+    }, [isAuth, navigate]);
+    
+    if (isAuth) {
+        return null;
     }
 
     return (
@@ -55,8 +72,7 @@ const LoginPage = () => {
             <Button
                 onClick={() =>
                     validate(() => {
-                        login(data[0].value, data[1].value, onError);
-                        navigate('/');
+                        login(data[0].value, data[1].value, onError, onSuccess);
                     })
                 }
             >
