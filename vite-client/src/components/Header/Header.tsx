@@ -6,13 +6,18 @@ import { getFile } from 'utils/getFile';
 const menu = [
   {
     id: 0,
-    title: 'Альбомыы',
+    title: 'Альбомы',
     path: '/',
   },
   {
     id: 1,
     title: 'Заметки',
     path: '/notes',
+  },
+  {
+    id: 2,
+    title: 'Треки',
+    path: '/tracks',
   },
 ];
 

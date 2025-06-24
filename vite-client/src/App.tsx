@@ -1,4 +1,3 @@
-import React from 'react';
 import './App.scss';
 import { Routes, Route } from 'react-router-dom';
 import Header from 'components/Header/Header';
@@ -21,8 +20,9 @@ function App() {
             <Route element={<ProtectedRoute />}>
               <Route index element={<MainPage />} />
               <Route path="/album/:id" element={<AlbumPage />} />
-              <Route path="/profile" element={<h1>Profile</h1>} />
+              <Route path="/profile" element={<h1>Профиль</h1>} />
               <Route path="/notes" element={<h1>Заметки</h1>} />
+              <Route path="/tracks" element={<h1>Треки</h1>} />
               <Route path="*" element={<h1>404</h1>} />
             </Route>
           </Route>

@@ -1,0 +1,54 @@
+.container {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 9999;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  animation: appear 0.3s ease-out;
+
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+.exitButtonContainer {
+  button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 30px;
+    height: 30px;
+    padding: 0;
+
+    transform: translate(30px, -30px);
+  }
+}
+
+.modal {
+  position: relative;
+  padding: 30px 40px;
+  background-color: rgb(20, 20, 20);
+}
+
+.hidden {
+  display: none;
+}
+
+@keyframes appear {
+  0% {
+    opacity: 0;
+    scale: 1.1;
+  }
+
+  100% {
+    opacity: 1;
+    scale: 1;
+  }
+}

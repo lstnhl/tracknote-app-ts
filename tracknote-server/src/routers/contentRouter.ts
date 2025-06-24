@@ -4,34 +4,30 @@ import authCheck from 'middlewares/authMiddleware.ts';
 import upload from 'utils/multer.ts';
 
 const contentRouter = Router();
+contentRouter.use(authCheck('USER'))
 
-contentRouter.get('/album', authCheck('USER'), contentController.getAllAlbums);
-contentRouter.get('/album/:id', authCheck('USER'), contentController.getAlbum);
-contentRouter.post('/album', authCheck('USER'), contentController.createAlbum);
+contentRouter.get('/album', contentController.getAllAlbums);
+contentRouter.get('/album/:id', contentController.getAlbum);
+contentRouter.post('/album', contentController.createAlbum);
 contentRouter.delete(
     '/album/:id',
-    authCheck('USER'),
     contentController.deleteAlbum
 );
 contentRouter.put(
     '/album/:id',
-    authCheck('USER'),
     upload.single('cover'),
     contentController.editAlbum
 );
 contentRouter.post(
     '/album/:id/add_track',
-    authCheck('USER'),
     contentController.addTrackToAlbum
 );
 contentRouter.delete(
     '/track/:trackId',
-    authCheck('USER'),
     contentController.deleteTrack
 );
 contentRouter.put(
     '/track/:trackId',
-    authCheck('USER'),
     contentController.editTrack
 )
 
