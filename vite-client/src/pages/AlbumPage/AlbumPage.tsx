@@ -1,7 +1,5 @@
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import useContentApi from 'api/contentApi';
-import { IAlbumPage } from 'types/AlbumProps';
 import s from './AlbumPage.module.scss';
 import { getBackgroundImageUrl } from 'utils/getFile';
 import TrackList from 'components/Track/TrackList';

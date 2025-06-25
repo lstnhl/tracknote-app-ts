@@ -69,6 +69,7 @@ const Track: FC<ITrackProps> = ({ data }) => {
           </div>
         )}
       </div>
+      <span>{data.notes && 'Заметка есть'}</span>
       <Button
         onClick={() => {
           showModal(<EditModalContent data={data}/>, 'Редактирование трека');

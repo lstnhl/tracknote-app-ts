@@ -1,7 +1,7 @@
 import AlbumItem from 'components/AlbumItem';
 import s from './MainPage.module.scss';
 import { Link } from 'react-router-dom';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, memo } from 'react';
 import useContentApi from 'api/contentApi';
 
 const MainPage = () => {

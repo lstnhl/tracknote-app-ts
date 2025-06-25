@@ -35,6 +35,11 @@ class ContentController {
       .populate({
         path: 'tracks',
         select: '_id title order feats explicit',
+        populate: {
+          path: 'notes',
+          match: { owner: req.userId },
+          select: 'title text'
+        }
       });
 
     if (!album) {

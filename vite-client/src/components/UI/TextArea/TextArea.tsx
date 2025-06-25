@@ -1,13 +1,13 @@
 import { FC, ComponentPropsWithoutRef } from 'react';
-import s from './Text.module.scss';
+import s from './TextArea.module.scss';
 
-interface IText extends ComponentPropsWithoutRef<'input'> {
+interface ITextArea extends ComponentPropsWithoutRef<'textarea'> {
     label?: string;
     errorMessage?: string;
     initialValue?: string;
 }
 
-const Text: FC<IText> = ({ label, errorMessage, initialValue = '', ...props }) => {
+const TextArea: FC<ITextArea> = ({ label, errorMessage, initialValue = '', ...props }) => {
     const getInputClassName = (): string => {
         let className = `${s.input}`;
 
@@ -24,13 +24,10 @@ const Text: FC<IText> = ({ label, errorMessage, initialValue = '', ...props }) =
 
     return (
         <div className={s.container}>
-            <label>
-                {label ? label + ':' : null}
-            </label>
-            <input defaultValue={initialValue} {...props} className={getInputClassName()} />
+            <textarea {...props} defaultValue={initialValue} className={getInputClassName()} />
             {errorMessage && <span>{errorMessage}</span>}
         </div>
     );
 };
 
-export default Text;
+export default TextArea;
