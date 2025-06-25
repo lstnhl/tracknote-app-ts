@@ -1,0 +1,40 @@
+@use 'styles/variables.scss' as *;
+
+.container {
+    background-color: $color-2;
+    padding: 20px;
+    height: 267px;
+    width: 200px;
+    overflow: hidden;
+    position: relative;
+    cursor: pointer;
+
+    transition: scale .2s;
+
+    &:hover {
+        scale: 1.05
+    }
+}
+
+.title {
+    font-size: 25px;
+    margin-bottom: 10px;
+}
+
+.text {
+    white-space: pre-line;
+}
+
+.gradient {
+    z-index: 2;
+    position: absolute;
+    background: linear-gradient(
+        to top,
+        $color-2,
+        transparent,
+    );
+    bottom: 0;
+    left: 0;
+    height: 100px;
+    width: 100%;
+}

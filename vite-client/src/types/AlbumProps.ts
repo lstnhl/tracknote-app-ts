@@ -3,9 +3,20 @@ export interface ITrack {
   artist: string;
   title: string;
   order: number;
+  notes?: INote;
   feats?: string[];
   text?: string;
   explicit: boolean;
+}
+
+export interface INote {
+  _id: string;
+  title: string;
+  text: string;
+  owner: string;
+  attachedToTrack?: string;
+  createdAt: string;
+  updatedAt: string;
 }
 
 export interface ITrackFormInfo {

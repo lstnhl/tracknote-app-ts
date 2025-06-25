@@ -29,6 +29,16 @@ const TrackSchema = new mongoose.Schema(
     }
 );
 
+TrackSchema.virtual('notes', {
+    ref: 'Note',
+    localField: '_id',
+    foreignField: 'attachedToTrack',
+    justOne: true,
+});
+
+TrackSchema.set('toObject', { virtuals: true });
+TrackSchema.set('toJSON', { virtuals: true });
+
 const Track = mongoose.model('Track', TrackSchema, 'Track');
 
 export default Track;
